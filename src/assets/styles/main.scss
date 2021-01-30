@@ -1,8 +1,26 @@
 @import "~bootstrap";
 @import "~bootstrap-vue";
+@import "~vue-select/src/scss/vue-select";
 
 html {
   body {
     font-size: 14px;
+    color: #000023;
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.pointer-event {
+  cursor: pointer;
 }

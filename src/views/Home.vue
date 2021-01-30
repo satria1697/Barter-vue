@@ -10,6 +10,7 @@
       <b-card v-for="data in sliceStore" :key="data.id" class="col-md-3">
         <b-card-body style="height: 22rem" @click="goTo(data.id)">
           <b-card-img-lazy
+            class="pointer-event"
             :src="data.image"
             style="max-height: 15rem"
             @error="blankimage"
@@ -35,8 +36,11 @@
 import Slides from "../components/slides";
 import blankimage from "../assets/blank-img.jpg";
 import axios from "axios";
+import formatPrice from "../mixin/formatPrice";
+
 export default {
   components: { Slides },
+  mixins: [formatPrice],
   data() {
     return {
       blankimage: blankimage,
@@ -58,15 +62,13 @@ export default {
         .then(resp => {
           if (resp.status === 200) {
             this.dataStore = resp.data;
+          } else {
+            console.log("Terjadi Kesalahan Pada Server");
           }
         })
         .catch(err => {
           if (err.status >= 400) console.log("Terjadi Kesalahan Pada Server");
         });
-    },
-    formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     goTo(id) {
       this.$router.push({ name: "goods", params: { goods_id: id } });
